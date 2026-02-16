@@ -1,22 +1,12 @@
 class Solution {
 public:
     int reverseBits(int n) {
-        string a = "";
-        int ans = 0;
-        while(n != 0){
-            a += to_string(n%2);
-            n = n / 2;
+        uint32_t rev = 0;
+        for(int i = 0 ; i < 32 ; i++){
+            rev = rev << 1;
+            rev += n&1;
+            n = n >> 1;
         }
-        while(a.length() != 32){
-            a+= '0';
-        }
-        int j = 0;
-        for(int i = 31 ; i >= 0 ; i--){
-            if(a[i] == '1'){
-                ans += pow(2,j);
-            }
-            j++;
-        }
-        return ans;
+        return rev;
     }
 };
