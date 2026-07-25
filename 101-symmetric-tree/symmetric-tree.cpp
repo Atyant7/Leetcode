@@ -28,8 +28,7 @@ public:
         return root; 
     }
     bool isSymmetric(TreeNode* root) {
-        TreeNode* temp = invertTree(root->left);
-        root->left = temp;
+        root->left= invertTree(root->left);
         return isSameTree(root->left, root->right);
     }
 };
