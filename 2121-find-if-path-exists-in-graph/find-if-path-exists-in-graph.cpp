@@ -11,9 +11,6 @@ public:
         queue<int> q;
         q.push(source);
         vis[source] = true;
-        q.push(source);
-        vis[source] = true;
-
         while (!q.empty()) {
             int front = q.front();
             q.pop();
