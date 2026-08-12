@@ -11,19 +11,28 @@
  */
 class Solution {
 public:
-    int sum = 0;
-    void sum_left_right(TreeNode* root, int n){
-        if(root == NULL) return;
-        n = n*10 + root->val;
-        if(root->left == NULL && root -> right == NULL) {
-            sum += n;
-            return;
-        }
-        sum_left_right(root->left, n);
-        sum_left_right(root->right, n);
-    }
     int sumNumbers(TreeNode* root) {
-        sum_left_right(root, 0);
+        if(root == nullptr) return 0;
+        stack<pair<TreeNode* , int>> st;
+        st.push(make_pair(root , 0));
+        int sum = 0;
+        while(!st.empty()){
+            auto p = st.top();
+            st.pop();
+            TreeNode* node = p.first;
+            int cn = p.second;
+            cn = cn*10 + node->val;
+            if(node->left == nullptr && node->right == nullptr){
+                sum += cn;
+            }
+            if(node->left != nullptr){
+                st.push(make_pair(node->left, cn));
+            }
+            if(node->right != nullptr){
+                st.push(make_pair(node->right, cn));
+            }
+        }
         return sum;
+        
     }
 };
