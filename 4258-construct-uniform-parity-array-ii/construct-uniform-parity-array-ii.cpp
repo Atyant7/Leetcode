@@ -2,7 +2,7 @@ class Solution {
 public:
     bool uniformArray(vector<int>& nums) {
         int evmin = INT_MAX, odmin = INT_MAX;
-        int evi = 0, odi = 0;
+        // int evi = 0, odi = 0;
         for(int i = 0 ; i < nums.size() ; i++){
             if(nums[i] % 2 == 0 && nums[i] < evmin){
                 evmin = min(evmin, nums[i]);
