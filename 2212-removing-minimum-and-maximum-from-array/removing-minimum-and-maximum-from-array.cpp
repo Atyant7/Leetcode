@@ -14,14 +14,6 @@ public:
                 maxi = i;
             }
         }
-        // if(abs(mini - maxi) >= nums.size()/2){
-        //     return (min(mini, maxi) + 1) + (n - max(mini, maxi));
-        // }
-        // return min(max(mini, maxi)+1, (n - min(mini, maxi)));
         return min((min(mini, maxi) + 1) + (n - max(mini, maxi)) , min(max(mini, maxi)+1, (n - min(mini, maxi))));
-        // else if(min(mini, maxi) < n/2){
-        //     return max(mini, maxi)+1;
-        // }
-        // return (n - min(mini, maxi));
     }
 };
