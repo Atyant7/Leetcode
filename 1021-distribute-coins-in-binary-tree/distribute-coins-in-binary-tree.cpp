@@ -11,17 +11,22 @@
  */
 class Solution {
 public:
-    vector<int> dfs(TreeNode* root){
-        if(root == nullptr) return {0, 0};
-        vector<int> left = dfs(root->left);
-        vector<int> right = dfs(root->right);
-        int extra = root->val + left[0] + right[0] - 1;
-        int move = abs(left[0]) + abs(right[0])
-                  + left[1] + right[1];
-        return {extra, move};
+    int moves = 0;
+
+    int dfs(TreeNode* root) {
+        if (root == nullptr)
+            return 0;
+
+        int left = dfs(root->left);
+        int right = dfs(root->right);
+
+        moves += abs(left) + abs(right);
+
+        return root->val + left + right - 1;
     }
+
     int distributeCoins(TreeNode* root) {
-        vector<int> move = dfs(root);
-        return move[1];
+        dfs(root);
+        return moves;
     }
 };
