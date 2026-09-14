@@ -11,43 +11,21 @@
  */
 class Solution {
 public:
-    int bfs(TreeNode* root){
-        queue<TreeNode*> q;
-        q.push(root);
-        int sum = 0;
-        int n = 1;
-        while(!q.empty()){
-            TreeNode* temp = q.front();
-            q.pop();
-            sum+=temp->val;
-            if(temp->left != nullptr){
-                q.push(temp->left);
-                n++;
-            }
-            if(temp->right != nullptr){
-                q.push(temp->right);
-                n++;
-            }
-        }
-        return sum/n;
+    int ans = 0;
+    pair<int, int> dfs(TreeNode* root) {
+        if (root == nullptr)
+            return {0, 0};
+        auto left = dfs(root->left);
+        auto right = dfs(root->right);
+        int sum = root->val + left.first + right.first;
+        int count = 1 + left.second + right.second;
+        if (sum / count == root->val)
+            ans++;
+        return {sum, count};
     }
+
     int averageOfSubtree(TreeNode* root) {
-        if(root->left == nullptr && root->right == nullptr) return 1;
-        queue<TreeNode*> q;
-        q.push(root);
-        int ans = 0;
-        while(!q.empty()){
-            TreeNode* temp = q.front();
-            q.pop();
-            int ok = bfs(temp);
-            if(ok == temp->val) ans++;
-            if(temp->left != nullptr){
-                q.push(temp->left);
-            }
-            if(temp->right != nullptr){
-                q.push(temp->right);
-            }
-        }
+        dfs(root);
         return ans;
     }
 };
