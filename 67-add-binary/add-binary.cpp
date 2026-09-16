@@ -9,14 +9,18 @@ public:
         while(i >= 0 || j >= 0 || carry) {
             int sum = carry;
 
-            if(i >= 0) sum += (a[i--] - '0');
-            if(j >= 0) sum += (b[j--] - '0');
+            if(i >= 0)
+                sum += a[i--] - '0';
 
-            ans += (sum % 2) + '0';   // add bit
-            carry = sum / 2;          // update carry
+            if(j >= 0)
+                sum += b[j--] - '0';
+
+            ans += (sum % 2) + '0';
+            carry = sum / 2;
         }
 
         reverse(ans.begin(), ans.end());
+
         return ans;
     }
 };
