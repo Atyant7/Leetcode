@@ -11,18 +11,25 @@
  */
 class Solution {
 public:
-    bool ok = true;
-    int dekhtehai(TreeNode* root){
-        if(root == NULL) return 0;
-        int left = dekhtehai(root->left);
-        int right = dekhtehai(root->right);
-        if(abs(left - right) > 1) ok=false;
+    int height(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+
+        int left = height(root->left);
+        if(left == -1)
+            return -1;
+
+        int right = height(root->right);
+        if(right == -1)
+            return -1;
+
+        if(abs(left - right) > 1)
+            return -1;
+
         return max(left, right) + 1;
     }
-    bool isBalanced(TreeNode* root) {
-        if(root == NULL) return true;
-        dekhtehai(root);
-        return ok;
 
+    bool isBalanced(TreeNode* root) {
+        return height(root) != -1;
     }
 };
