@@ -1,4 +1,5 @@
-class Solution {
+// dp = memoisation
+class Solution1{
 public:
     bool isPerfect(int n){
         int temp = int(sqrt(n));
@@ -21,5 +22,29 @@ public:
         vector<int> dp(n+1, -1);
         return minSquares(n, dp);
 
+    }
+};
+
+// dp = tabulation
+class Solution {
+public:
+    bool isPerfect(int n){
+        int temp = int(sqrt(n));
+        return temp*temp == n ? true : false;
+    }
+    int numSquares(int n){
+        vector<int> dp(n+1, -1);
+        for(int i = 1; i <= n; i++){
+            if(isPerfect(i)) dp[i] = 1;
+            else{
+                int mine = INT_MAX;
+                for(int j = 1; j * j <= i ; j++){
+                    int cnt = dp[j*j] + dp[i - j * j];
+                    mine = min(mine, cnt);
+                }
+                dp[i] = mine;
+            }
+        }
+        return dp[n];
     }
 };
