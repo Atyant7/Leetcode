@@ -1,21 +1,27 @@
-// OJ: https://leetcode.com/problems/next-greater-element-i/
-// Author: github.com/lzl124631x
-// Time: O(N)
-// Space: O(N)
 class Solution {
 public:
-    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
-        stack<int> s;
-        unordered_map<int, int> m;
-        for (int n : nums) {
-            while (s.size() && s.top() < n) {
-                m[s.top()] = n;
-                s.pop();
+    int findMax(vector<int>& nums2, int temp){
+        int ans = INT_MIN;
+        int i = 0;
+        for(int j = 0; j < nums2.size() ; j++){
+            if(nums2[j] == temp){
+                i = j+1;
+                break;
             }
-            s.push(n);
         }
-        vector<int> ans;
-        for (int n : findNums) ans.push_back(m.count(n) ? m[n] : -1);
+        for(i ; i < nums2.size() ; i++){
+            if(temp < nums2[i]){
+                ans = nums2[i];
+                break;
+            }
+        }
+        return ans == INT_MIN ? -1 : ans;
+    }
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans(nums1.size());
+        for(int i = 0; i < nums1.size(); i++){
+            ans[i] = findMax(nums2, nums1[i]);
+        }
         return ans;
     }
 };
