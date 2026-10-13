@@ -11,5 +11,4 @@ SELECT (
     SELECT DISTINCT salary
     FROM cte
     WHERE `rank` = 2
-    LIMIT 1
 ) AS SecondHighestSalary;
