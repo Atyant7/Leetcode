@@ -1,3 +1,4 @@
+// recurrsion
 class Solution1 {
 public:
     int ans = 0;
@@ -24,6 +25,7 @@ public:
     }
 };
 
+// normal loop
 class Solution {
 public:
     int sumCounts(vector<int>& nums) {
