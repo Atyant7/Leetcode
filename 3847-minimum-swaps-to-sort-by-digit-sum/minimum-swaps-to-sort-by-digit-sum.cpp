@@ -25,23 +25,23 @@ public:
     int minSwaps(vector<int>& nums) {
         int n = nums.size();
 
-        vector<tuple<int, int, int>> v;
+        vector<pair<pair<int, int>, int>> v;
 
         for (int i = 0; i < n; i++) {
-            v.push_back({nums[i], addnum(nums[i]), i});
+            v.push_back({{nums[i], addnum(nums[i])}, i});
         }
 
-        sort(v.begin(), v.end(), [](const auto& a, const auto& b) {
-            if (get<1>(a) == get<1>(b))
-                return get<0>(a) < get<0>(b);
+        sort(v.begin(), v.end(), [](auto& a, auto& b) {
+            if (a.first.second == b.first.second)
+                return a.first.first < b.first.first;
 
-            return get<1>(a) < get<1>(b);
+            return a.first.second < b.first.second;
         });
 
         vector<pair<int, int>> ans(n);
 
         for (int i = 0; i < n; i++) {
-            int originalIndex = get<2>(v[i]);
+            int originalIndex = v[i].second;
             ans[originalIndex] = {nums[originalIndex], i};
         }
 
