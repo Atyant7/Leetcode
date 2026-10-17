@@ -11,6 +11,17 @@ public:
         return sum;
     }
 
+    void dfs(int node, vector<pair<int, int>>& ans,
+             vector<bool>& visited) {
+        visited[node] = true;
+
+        int next = ans[node].second;
+
+        if (!visited[next]) {
+            dfs(next, ans, visited);
+        }
+    }
+
     int minSwaps(vector<int>& nums) {
         int n = nums.size();
 
@@ -37,20 +48,10 @@ public:
         vector<bool> visited(n, false);
         int cycles = 0;
 
-        function<void(int)> dfs = [&](int node) {
-            visited[node] = true;
-
-            int next = ans[node].second;
-
-            if (!visited[next]) {
-                dfs(next);
-            }
-        };
-
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
                 cycles++;
-                dfs(i);
+                dfs(i, ans, visited);
             }
         }
 
