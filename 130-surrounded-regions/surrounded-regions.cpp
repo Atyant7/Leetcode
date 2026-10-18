@@ -26,7 +26,7 @@ public:
                 int ncol = col + dc[i];
                 if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m)
                     continue;
-                if (board[nrow][ncol] == 'T') {
+                if (board[nrow][ncol] == 'O' && (nrow == 0 || nrow == n-1 || ncol == 0 || ncol == m-1)) {
                     flag = true;
                     continue;
                 }
@@ -50,21 +50,21 @@ public:
         int cnt = 0;
         vector<vector<bool>> vis(n, vector<bool>(m, false));
         for (int i = 0; i < n; i++) {
-            if (board[i][0] == 'O')
-                board[i][0] = 'T';
+            // if (board[i][0] == 'O')
+            //     board[i][0] = 'T';
 
-            if (board[i][m - 1] == 'O')
-                board[i][m - 1] = 'T';
+            // if (board[i][m - 1] == 'O')
+            //     board[i][m - 1] = 'T';
 
             vis[i][0] = true;
             vis[i][m - 1] = true;
         }
         for (int j = 0; j < m; j++) {
-            if (board[0][j] == 'O')
-                board[0][j] = 'T';
+            // if (board[0][j] == 'O')
+            //     board[0][j] = 'T';
 
-            if (board[n - 1][j] == 'O')
-                board[n - 1][j] = 'T';
+            // if (board[n - 1][j] == 'O')
+            //     board[n - 1][j] = 'T';
 
             vis[0][j] = true;
             vis[n - 1][j] = true;
@@ -84,19 +84,19 @@ public:
                 }
             }
         }
-        for (int i = 0; i < n; i++) {
-            if (board[i][0] == 'T')
-                board[i][0] = 'O';
+        // for (int i = 0; i < n; i++) {
+        //     if (board[i][0] == 'T')
+        //         board[i][0] = 'O';
 
-            if (board[i][m - 1] == 'T')
-                board[i][m - 1] = 'O';
-        }
-        for (int j = 0; j < m; j++) {
-            if (board[0][j] == 'T')
-                board[0][j] = 'O';
+        //     if (board[i][m - 1] == 'T')
+        //         board[i][m - 1] = 'O';
+        // }
+        // for (int j = 0; j < m; j++) {
+        //     if (board[0][j] == 'T')
+        //         board[0][j] = 'O';
 
-            if (board[n - 1][j] == 'T')
-                board[n - 1][j] = 'O';
-        }
+        //     if (board[n - 1][j] == 'T')
+        //         board[n - 1][j] = 'O';
+        // }
     }
 };
