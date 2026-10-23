@@ -9,8 +9,9 @@ public:
             }
         }
         if(v.size() == 0) return 0;
-        int minele = *min_element(v.begin(), v.end());
-        for(int i = 0; i < v.size(); i++){
+        // int minele = *min_element(v.begin(), v.end());
+        int minele = v[0];
+        for(int i = 1; i < v.size(); i++){
             if(minele == v[i]) continue;
             minele = minele & v[i];
         }
