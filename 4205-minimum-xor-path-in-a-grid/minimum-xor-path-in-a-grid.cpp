@@ -24,9 +24,7 @@ public:
     int minCost(vector<vector<int>>& grid) {
         int n = grid.size(), m = grid[0].size();
 
-        vector<vector<vector<bool>>> vis(
-            n, vector<vector<bool>>(m, vector<bool>(1024, false))
-        );
+        vector<vector<vector<bool>>> vis(n, vector<vector<bool>>(m, vector<bool>(1024, false)));
 
         int ans = INT_MAX;
         dfs(grid, 0, 0, 0, vis, n, m, ans);
