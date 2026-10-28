@@ -1,17 +1,12 @@
 class Solution {
 public:
     int dfs(vector<int>& coins, int amount, int i, vector<vector<int>>& vis) {
-        // Base cases
-        if (amount == 0)
-            return 0;
-        if (amount < 0 || i == coins.size())
-            return INT_MAX;
+        if (amount == 0) return 0;
+        if (amount < 0 || i == coins.size()) return INT_MAX;
         if(vis[i][amount] != -1) return vis[i][amount];
 
-        // Choice 1: Current coin choose karo
         int take = dfs(coins, amount - coins[i], i, vis);
 
-        // Choice 2: Current coin skip karo
         int skip = dfs(coins, amount, i + 1, vis);
 
         if (take != INT_MAX)
