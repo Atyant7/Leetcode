@@ -12,28 +12,30 @@
 class Solution {
 public:
     long long kthLargestLevelSum(TreeNode* root, int k) {
-        queue<TreeNode*> q;
+        priority_queue<long long, vector<long long>, greater<long long>> pq;
+        queue<TreeNode*>q;
         q.push(root);
-        priority_queue<long long> pq;
         while(!q.empty()){
-            int s = q.size();
-            long long ans = 0;
-            for(int i = 0; i < s; i++){
-                TreeNode* temp = q.front();
+            long long sum=0;
+            int n=q.size();
+            while(n--){
+                TreeNode* temp=q.front();
                 q.pop();
-                ans+=temp->val;
-                if(temp->left != nullptr){
+                sum+=temp->val;
+                if(temp->left){
                     q.push(temp->left);
                 }
-                if(temp->right != nullptr){
+                if(temp->right){
                     q.push(temp->right);
                 }
             }
-            pq.push(ans);
+            pq.push(sum);
+            if(pq.size()>k){
+                pq.pop();
+            }
         }
-        if(pq.size() < k) return -1;
-        for(int i = 0; i < k-1; i++){
-            pq.pop();
+        if(pq.size()<k){
+            return -1;
         }
         return pq.top();
     }
