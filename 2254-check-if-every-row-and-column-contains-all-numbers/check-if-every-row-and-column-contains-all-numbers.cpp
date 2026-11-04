@@ -4,7 +4,7 @@ public:
         int n = matrix.size();
 
         for(int i = 0; i < n; i++){
-            set<int> row, col;
+            unordered_set<int> row, col;
 
             for(int j = 0; j < n; j++){
                 row.insert(matrix[i][j]);
