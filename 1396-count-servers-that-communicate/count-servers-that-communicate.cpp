@@ -17,7 +17,10 @@ public:
             int row = temp.first;
             int col = temp.second;
             for(int k = row+1; k < n; k++){
-                if(vis[k][col]) flag = true;
+                if(vis[k][col]){
+                    flag = true;
+                    continue;
+                }
                 if(grid[k][col] == 1 && !vis[k][col]){
                     q.push({k, col});
                     vis[k][col] = true;
@@ -26,7 +29,10 @@ public:
                 }
             }
             for(int k = col+1; k < m; k++){
-                if(vis[row][k]) flag = true;
+                if(vis[row][k]){
+                    flag = true;
+                    continue;
+                }
                 if(grid[row][k] == 1 && !vis[row][k]){
                     q.push({row, k});
                     vis[row][k] = true;
