@@ -1,22 +1,21 @@
 class Solution {
 public:
-    int helper(string &s, int i, char ch) {
-        if (i == s.size()) {
-            return 0;
-        }
-
-        if (s[i] != ch) {
-            return 0;
-        }
-
-        return 1 + helper(s, i + 1, ch + 1);
-    }
-
     int longestContinuousSubstring(string s) {
-        int ans = 0;
+        int n = s.size();
 
-        for (int i = 0; i < s.size(); i++) {
-            ans = max(ans, helper(s, i, s[i]));
+        int count = 1;
+        int ans = 1;
+
+        for(int i = 1; i < n; i++) {
+
+            if(s[i] == s[i-1] + 1) {
+                count++;
+            }
+            else {
+                count = 1;
+            }
+
+            ans = max(ans, count);
         }
 
         return ans;
