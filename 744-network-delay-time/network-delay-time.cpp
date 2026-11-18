@@ -1,26 +1,52 @@
 class Solution {
 public:
-    void dfs(vector<vector<pair<int, int>>>& adj, vector<int>& dis, int start, int w){
-        if(adj[start].size() == 0) return;
-        for(auto a : adj[start]){
-            if((w + a.second) < dis[a.first]){
+    void dfs(vector<vector<pair<int, int>>>& adj, vector<int>& dis, int start,
+             int w) {
+        if (adj[start].size() == 0)
+            return;
+        for (auto a : adj[start]) {
+            if ((w + a.second) < dis[a.first]) {
                 dis[a.first] = w + a.second;
                 dfs(adj, dis, a.first, w + a.second);
             }
         }
     }
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<vector<pair<int, int>>> adj(n+1);
-        for(int i = 0; i < times.size(); i++){
+        vector<vector<pair<int, int>>> adj(n + 1);
+        for (int i = 0; i < times.size(); i++) {
             pair<int, int> temp = {times[i][1], times[i][2]};
             adj[times[i][0]].push_back(temp);
         }
-        vector<int> dis(n+1, INT_MAX);
+        vector<int> dis(n + 1, INT_MAX);
         dis[k] = 0;
-        dfs(adj, dis, k, 0);
         int res = INT_MIN;
-        for(int i = 1; i <= n; i++){
-            if(dis[i] == INT_MAX) return -1;
+
+        // dfs(adj, dis, k, 0);
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        pq.push({0, k});
+
+        while (!pq.empty()) {
+            pair<int, int> temp = pq.top();
+            pq.pop();
+
+            int w = temp.first;
+            int node = temp.second;
+
+            if (w > dis[node])
+                continue;
+
+            for (auto a : adj[node]) {
+                if ((w + a.second) < dis[a.first]) {
+                    dis[a.first] = w + a.second;
+                    pq.push({dis[a.first], a.first});
+                }
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (dis[i] == INT_MAX)
+                return -1;
             res = max(res, dis[i]);
         }
         return res;
