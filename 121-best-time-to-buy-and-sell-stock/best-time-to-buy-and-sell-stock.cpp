@@ -12,9 +12,9 @@ public:
                 ans = max(ans, prices[i] - st.top());
                 continue;
             }
+            st.pop();
             st.push(prices[i]);
         }
         return ans;
-        // return f1(prices, 0);
     }
 };
