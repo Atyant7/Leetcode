@@ -1,38 +1,48 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    int xdepth, ydepth, xparent, yparent;
+    bool isCousins(TreeNode* root, int x, int y) {
+        pair<TreeNode*, int> p1 = {nullptr, -1};
+        pair<TreeNode*, int> p2 = {nullptr, -1};
 
-void depth(TreeNode* root, int x, int y, int dep, int par_val){
-    if(root==NULL) return;
-    if(root->val==x){
-        xdepth=dep;
-        xparent=par_val;
-        return;
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = 0;
+
+        while(!q.empty()){
+            int s = q.size();
+
+            for(int i = 0; i < s; i++){
+                TreeNode* temp = q.front();
+                q.pop();
+
+                if(temp->left != nullptr){
+                    if(temp->left->val == x)
+                        p1 = {temp, level};
+                    else if(temp->left->val == y)
+                        p2 = {temp, level};
+                    else
+                        q.push(temp->left);
+                }
+
+                if(temp->right != nullptr){
+                    if(temp->right->val == x)
+                        p1 = {temp, level};
+                    else if(temp->right->val == y)
+                        p2 = {temp, level};
+                    else
+                        q.push(temp->right);
+                }
+            }
+
+            if(p1.first != nullptr || p2.first != nullptr)
+                break;
+
+            level++;
+        }
+
+        return p1.first != nullptr &&
+               p2.first != nullptr &&
+               p1.first != p2.first &&
+               p1.second == p2.second;
     }
-    if(root->val==y){
-        ydepth=dep;
-        yparent=par_val;
-        return;
-    }
-    depth(root->left, x, y, dep+1, root->val);
-    depth(root->right, x, y, dep+1, root->val);
-}
-bool isCousins(TreeNode* root, int x, int y) {
-    if(root->val==x || root->val==y) return false;
-    depth(root, x, y, 0, 0);
-    
-    if(xdepth==ydepth && xparent!=yparent) return true;
-    return false;
-}
 };
